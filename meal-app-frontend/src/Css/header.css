@@ -1,0 +1,35 @@
+.header {
+    background-color: darkgray;
+    font-size:large;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgb(199, 185, 185);
+    position:sticky;
+    height: 35px;
+    
+  }
+
+  .headerIcon{
+    margin: 2px;
+    width: 5%;
+    height: 30px;
+    background-color: transparent;
+    border: 0.1px solid #d2d2ff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .headerIcon:hover{
+    width: 5%;
+    height: 40px;
+    /* transform: scaleY(1.1); */
+    /* transform: scaleX(1.1); */
+    transition-duration: 0.5s;
+    border: 0.1px solid #5d5dac;
+     
+  }
+  

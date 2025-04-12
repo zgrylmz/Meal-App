@@ -1,0 +1,22 @@
+.image-view-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: white;
+}
+
+.full-image {
+  max-width: 90%;
+  max-height: 90%;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.back-hint {
+  color: black;
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+}
