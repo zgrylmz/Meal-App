@@ -27,6 +27,8 @@ const countries = [
   'Turkey',
   'China',
   'USA',
+  'Netherlands',
+  'Mexico',
  
 ];
 

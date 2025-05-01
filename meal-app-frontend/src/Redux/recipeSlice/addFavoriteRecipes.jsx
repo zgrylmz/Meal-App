@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 
 // ✅ Send userId and favoriteItem in the request
 export const addFavoriteRecipes = createAsyncThunk("addFavoriteRecipes", async ({ userId, favoriteItem }) => {
@@ -28,11 +28,24 @@ export const removeFromFavoriteRecipes = createAsyncThunk("removeFromFavorites",
     );
 });
 
+
+export const getFavoritRecipesWithContent = createAsyncThunk("getFavoritRecipesWithContent",async ({ recipeName }) => {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/getRecipesByName`,
+        { recipeName },
+        { withCredentials: true }
+      );
+      return response.data;
+    }
+  );
+  
+
 export const recipeSlice = createSlice({
     name: 'favoriteRecipes',
     initialState: {
         userId:null, // ✅ Added entities to prevent errors
-        favoriteRecipe:null
+        favoriteRecipe:null,
+        favoriteRecipesWithContent:null
     },
     reducers: {
         setUserId:(state,action)=>{
@@ -46,6 +59,9 @@ export const recipeSlice = createSlice({
         });
         builder.addCase(callFavoriteRecipes.fulfilled,(state,action)=>{
             state.favoriteRecipe = action.payload;
+        });
+        builder.addCase(getFavoritRecipesWithContent.fulfilled,(state,action)=>{
+            state.favoriteRecipesWithContent = action.payload
         });
     }
 });

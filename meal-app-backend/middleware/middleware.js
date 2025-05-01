@@ -34,12 +34,12 @@ const requiredToken = async (req,res,next)=>{
                 console.log("Token is not verifiedddd");
                 res.json({redirectUrl:"/login"});
             }else{
-                console.log("Token is verified");
+                console.log("Token is verified!");
                 next();
             }
         })
     }else{
-        console.log("Token is not verified");
+        console.log("Token is not verifieddddd");
         res.redirect({redirectUrl:"/login"});
     }
 }

@@ -18,16 +18,17 @@ import axios from "axios";
 
 // ✅ Logout user (clears Redux state & cookies)
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
-    await axios.post(`${import.meta.env.VITE_API_URL}/logout`, {}, { withCredentials: true });
+  const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout`, {}, { withCredentials: true });
     localStorage.removeItem("user"); // ✅ Remove user from local storage
     localStorage.removeItem("userId");
-    return null;
+    return response.data;
 });
 
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-         user: JSON.parse(localStorage.getItem("user")) || null
+         user: JSON.parse(localStorage.getItem("user")) || null,
+         redirectUrl:""
         
     },
     reducers: {
@@ -39,8 +40,10 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
       
             
-            builder.addCase(logoutUser.fulfilled, (state) => {
+            builder.addCase(logoutUser.fulfilled, (state,action) => {
                 state.user = null; // Clears user from Redux
+                state.redirectUrl = action.payload;
+
             });
     }
 });

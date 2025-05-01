@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcryptjs = require("bcryptjs");
+const commentSchema = require('./commentSchema');
 
 const userSchema = new mongoose.Schema({
 
@@ -28,16 +29,15 @@ const userSchema = new mongoose.Schema({
 },
 ratedRecipies: [
   {
-    name: { type: String, required: true },
-    rating: { type: Number, required: true },
+    name: { type: String, required: true,default:"" },
+    rating: { type: Number, required: true,default:"" },
     createdAt: { type: Date, default: Date.now }
   }
 ],
-commentsOfUser:[
+commentsOfUser: [
   {
-  recipeName:{type:String},
-  comment:{type:String},
-  createdAt:{type:Date, default:Date.now},  
+    ...commentSchema.obj, // reuse the structure
+    recipeName: { type: String, default: "" }
   }
 ]
 
@@ -45,20 +45,9 @@ commentsOfUser:[
 
 
 userSchema.statics.login = async function (email, password) {
-  try {
-    const user = await this.findOne({ email }); // Use "this" to refer to the model
-    if (user) {
-      const auth = await bcryptjs.compare(password,user.password);
-      if(auth){
-        return user;
-      }
-      throw new Error("Incorrect email or password");
-    }
-    throw new Error("Incorrect email or password"); // Throw an error for invalid credentials
-    // return user; // Return the user if found
-  } catch (error) {
-    throw error; // Throw the error to be handled elsewhere
-  }
+  const user = await this.findOne({ email });
+  if (user && await bcryptjs.compare(password, user.password)) return user;
+  throw new Error("Incorrect email or password");
 };
 
 

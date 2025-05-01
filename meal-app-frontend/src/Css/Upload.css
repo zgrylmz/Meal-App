@@ -1,0 +1,43 @@
+.Upload-page{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    height: 70vh; 
+}
+
+.upload-div-tags label {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+    font-size: initial;
+    font-family: system-ui;
+    text-align: left;
+    color: #333;
+}
+
+.upload-div-tags input{
+    width: 150%;
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding:10px
+}
+
+.upload-div-tags p{
+    width: 100%;
+    padding: 3px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom:1px
+}
+
+.upload-div-tags select{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    padding: 4px;
+}
+
+

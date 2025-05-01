@@ -4,9 +4,17 @@ import React from 'react'
 function Home() {
   return (
     <div>
+      <div>
+      <h2>Popular Ingredients</h2>
+    
+      </div>
 
-      <p>Popular Ingredients</p>
-      <p>Random Meals</p>
+      <hr></hr>
+
+    <div>
+    <h2>Random Meals</h2>
+
+    </div>
     </div>
   )
 }

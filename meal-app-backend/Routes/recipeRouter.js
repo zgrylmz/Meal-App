@@ -5,6 +5,10 @@ const {requiredToken} = require("../middleware/middleware")
 const router = Router();
 
 router.post("/addNewRecipe",recipeController.addNewRecipe);
+
+router.post("/addNewRecipeUpgrated",recipeController.addNewRecipeUpgrated)
+router.delete("/deleteOneRecipe",recipeController.deleteOneRecipe);
+
 router.get("/Recipes",requiredToken,recipeController.getAllRecipes);
 router.get("/recipe-details/:id",recipeController.getRecipePerId);
 
@@ -14,6 +18,15 @@ router.post("/setRating",recipeController.setRating);
 router.post("/saveComment",recipeController.saveComments);
 
 router.delete("/deleteComment",recipeController.deleteComment);
+router.put("/updateComment",recipeController.updateComment)
+
+router.get("/getAllRecipesPegination/:page", recipeController.getAllRecipesPegination);
+
+router.get("/getOneSingleRecipe/:id",recipeController.getOneSingleRecipe);
+
+
+router.post("/getRecipesByName",recipeController.getRecipesPerName);
+
 
 
 module.exports = router;

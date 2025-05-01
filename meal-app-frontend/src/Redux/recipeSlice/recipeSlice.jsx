@@ -6,28 +6,52 @@ export const getAllRecipesFromMongodb = createAsyncThunk("getRecipes", async () 
     return response.data;
 });
 
+
+export const getOneSingleRecipe = createAsyncThunk("getOneSingleRecipe",async({id})=>{
+  const response = await axios.get(`${import.meta.env.VITE_API_URL}/getOneSingleRecipe/${id}`,
+  {withCredentials:true});
+  return response.data;
+})
+
+export const getRecipesPagination = createAsyncThunk("getRecipesPagination",async({Page})=>{
+  const response = await axios.get(`${import.meta.env.VITE_API_URL}/getAllRecipesPegination/${Page}?limit=8`,
+    {withCredentials:true});
+    return response.data;
+});
+
+export const deleteOneRecipe = createAsyncThunk("deleteOneRecipe",async({recipeId})=>{
+  await axios.delete(`${import.meta.env.VITE_API_URL}/deleteOneRecipe`,{
+    data:{recipeId},
+    withCredentials:true
+  });
+});
+
 export const recipeSlice = createSlice({
   name: 'recipeSlice',
   initialState: {
-    value: 0,
     entities: [],
-    loading:false
+    loading:false,
+    oneRecipe:null,
   },
   reducers: {},
   extraReducers: (builder) => {
     
-    builder.addCase(getAllRecipesFromMongodb.pending,(state,action)=>{
+    builder.addCase(getRecipesPagination.pending,(state,action)=>{
       state.loading= true;
     });
-    builder.addCase(getAllRecipesFromMongodb.fulfilled, (state, action) => {
+    builder.addCase(getRecipesPagination.fulfilled, (state, action) => {
       state.entities = action.payload;
-      state.loading = false
+      state.loading = false;
   });
 
-  builder.addCase(getAllRecipesFromMongodb.rejected, (state, action) => {
+  builder.addCase(getRecipesPagination.rejected, (state, action) => {
     
     state.loading = false
-});
+  });
+
+  builder.addCase(getOneSingleRecipe.fulfilled,(state,action)=>{
+    state.oneRecipe = action.payload;
+  });
   }
 });
 

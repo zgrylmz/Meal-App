@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { callFavoriteRecipes, setUserId } from '../Redux/recipeSlice/addFavoriteRecipes';
+import {
+  callFavoriteRecipes,
+  getFavoritRecipesWithContent,
+  setUserId,
+} from '../Redux/recipeSlice/addFavoriteRecipes';
 import { useNavigate } from 'react-router';
-import { getAllRecipesFromMongodb } from '../Redux/recipeSlice/recipeSlice';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,83 +13,104 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
-import AnimatedLoader from '../component/AnimatedLoader';
 
 function Favorites() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userId, favoriteRecipe } = useSelector((store) => store.favoriteRecipes);
-  const {entities} = useSelector((store)=>store.recipeSlice);
+  const { userId, favoriteRecipe, favoriteRecipesWithContent } = useSelector(
+    (store) => store.favoriteRecipes
+  );
   const { user } = useSelector((store) => store.auth);
-  const [filteredFavorites , setFilteredFavorites] = useState([]);
+  const storedUserId = localStorage.getItem('userId');
+  // const [refreshFavorites, setRefreshFavorites] = useState(false); // 🆕 Track changes
 
-
+  // Step 1: Fetch favorite recipe names
   useEffect(() => {
-    let storedUserId = localStorage.getItem("userId"); // ✅ Retrieve from local storage
+    const fetchFavorites = async () => {
+      try {
+        if (!userId && storedUserId) {
+          dispatch(setUserId(storedUserId));
+          await dispatch(callFavoriteRecipes({ userId: storedUserId }));
+        } else if (userId) {
+          await dispatch(callFavoriteRecipes({ userId }));
+        }
+      } catch (err) {
+        console.error('Error loading favorites:', err);
+      }
+    };
 
-    if (!userId && storedUserId) {
-      dispatch(setUserId(storedUserId)); // ✅ Set userId in Redux
-      dispatch(callFavoriteRecipes({ userId:storedUserId })); // ✅ Fetch favorites only when userId exists
-    } else if (userId) {
-      dispatch(callFavoriteRecipes({ userId:userId })); // ✅ Fetch only when userId is set
-    }
-  }, [userId, dispatch]);
+    fetchFavorites();
+  }, [dispatch, userId, storedUserId]); // ✅ re-run if refreshed
 
-
-  useEffect(()=>{
+  // Step 2: Fetch full recipe data by name
+  useEffect(() => {
+    const fetchRecipes = async () => {
+     
+      if (favoriteRecipe?.favorites?.length > 0) {
+        try {
+          await dispatch(getFavoritRecipesWithContent({recipeName: favoriteRecipe.favorites,})
+          );
+        } catch (err) {
+          console.error('Error fetching full recipes:', err);
+        }
+      }
       
-    if(entities.length === 0){
-      dispatch(getAllRecipesFromMongodb());
-    }else if (entities.length>0 &&  favoriteRecipe?.favorites){
-        // const favoriteRecipesFiltered = entities((ent)=>ent. == )
-        const favoriteRecipesFiltered  = entities.filter((item)=>favoriteRecipe.favorites.includes(item.name))
-        setFilteredFavorites(favoriteRecipesFiltered)
-    }
-    
-  },[entities,dispatch,favoriteRecipe])
+    };
 
-  console.log(filteredFavorites)
+    fetchRecipes();
+  }, [dispatch, favoriteRecipe]);
 
-  // ✅ Prevent error by checking if `favoriteRecipe` exists
-  if (!favoriteRecipe || !favoriteRecipe.favorites || !filteredFavorites) {
-    return <p>Loading...</p>;
+  const truncateInstructions = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return `${text.substring(0, maxLength)}...`;
+  };
+
+  if (!user) {
+    navigate('/login');
+    return null;
   }
 
-  // const img = ;
 
   return (
-    
-    <div className='recipes-container'>
-    
-      {user ? (
-        favoriteRecipe.favorites.length > 0 ? (
-         
-       filteredFavorites.map((recipe,index)=>(
-        <div key={index}>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia component="img" height="140" src={`data:image/png;base64,${recipe.thumbnail}`} alt="Recipe Image" />
-          <CardContent>
-            <Typography display={'flex'} variant="h5" component="div">
-              {recipe.name}
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary', height: "100px" }}>
-              {recipe.instructions}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary" onClick={() => navigate("/recipe-details/" + recipe._id)}>
-            Details
-          </Button>
-        </CardActions>
-      </Card>
-    </div>
-       ))) : (
-          <p>No favorite recipes yet!</p>
-        )
+    <div className="recipes-container">
+      {favoriteRecipesWithContent && favoriteRecipesWithContent.length > 0 ? (
+        favoriteRecipesWithContent.map((recipe, index) => (
+          <div key={index}>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  src={`data:image/png;base64,${recipe.thumbnail}`}
+                  alt="Recipe"
+                />
+                <CardContent>
+                  <Typography variant="h5" component="div" style={{ height: '80px' }}>
+                    {recipe.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: 'text.secondary', height: '100px' }}
+                  >
+                    {truncateInstructions(recipe.instructions, 150)}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => navigate(`/recipe-details/${recipe._id}`)}
+                >
+                  Details
+                </Button>
+                {/* You could even add "Remove from Favorites" button here later and call `triggerRefresh()` after */}
+              </CardActions>
+            </Card>
+          </div>
+        ))
       ) : (
-        navigate("/login")
+        <p style={{ textAlign: 'center' }}>No favorite recipes yet!</p>
       )}
     </div>
   );

@@ -61,7 +61,22 @@ export default function IconMenu() {
           <ListItemIcon>
             <GiPerspectiveDiceSixFacesRandom  fontSize="xx-large" />
           </ListItemIcon>
-          <ListItemText>Favorites</ListItemText>
+          <ListItemText>My Favorites</ListItemText>
+        </MenuItem>
+
+        <MenuItem onClick={()=>navigate("/show-my-comments")}>
+          <ListItemIcon>
+            <GiPerspectiveDiceSixFacesRandom  fontSize="xx-large" />
+          </ListItemIcon>
+          <ListItemText>My Comments</ListItemText>
+        </MenuItem>
+        
+
+        <MenuItem onClick={()=>navigate("/addYourRecipe")}>
+          <ListItemIcon>
+            <GiPerspectiveDiceSixFacesRandom  fontSize="xx-large" />
+          </ListItemIcon>
+          <ListItemText>New Recipe</ListItemText>
         </MenuItem>
         
         

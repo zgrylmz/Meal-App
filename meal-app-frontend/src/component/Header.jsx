@@ -16,7 +16,13 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    // location.reload();
+    // if(redirectUrl){
+      navigate("/login");
+    // }
   };
+
+
 
 
   return (

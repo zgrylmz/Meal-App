@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const commentSchema = require('./commentSchema');
 
 const recipeSchema = new mongoose.Schema({
     name: {
@@ -27,6 +28,7 @@ const recipeSchema = new mongoose.Schema({
     },
     thumbnail:{
         type:String,
+        default:"",
         
     },
     country:{
@@ -39,18 +41,33 @@ const recipeSchema = new mongoose.Schema({
     },
     numberOfRating:{
         type:Number,
+        default:0,
     },
     rating:{
         type:Number,
+        default:0,
 
     },
     comments: [
         {
-            comment: { type: String, required: true },
-            createdAt: { type: Date, default: Date.now }
+        ...commentSchema.obj,
+        IdOfTheuser:{type:String, required:true},
+        emailOfTheUser:{type:String, required:true},
+        nameOfTheUser:{type:String, required:true},
+
         }
+    ], 
+    createdBy:[
+        {
+            IdOfTheUser:{type:String, required:true},
+            emailOfTheUser:{type:String, required:true},
+            nameOfTheUser:{type:String, required:true},
+      
+        }
+        
     ]
-}, { timestamps: true });
+
+}, { timestamps: true});
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 module.exports = Recipe;

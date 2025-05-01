@@ -2,28 +2,37 @@ import { useParams, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import "../Css/ImageView.css";
 import { useEffect, useState } from 'react';
-import { getAllRecipesFromMongodb } from '../Redux/recipeSlice/recipeSlice';
+import { getAllRecipesFromMongodb, getOneSingleRecipe } from '../Redux/recipeSlice/recipeSlice';
 
 function ImageView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const { entities } = useSelector((store) => store.recipeSlice);
+  const { entities,oneRecipe } = useSelector((store) => store.recipeSlice);
   const [recipe , SetRecipe] = useState();
 
 useEffect(()=>{
-    if(entities.length === 0){
-        dispatch(getAllRecipesFromMongodb())
-    }
-    if(entities.length > 0){
-        const imgRecipe = entities.find((item)=>item._id === id);
-        SetRecipe(imgRecipe);
-    }
-},[dispatch,entities,id])
+      const callOneRecipe = async()=>{
+        if(oneRecipe===null){
+          await dispatch(getOneSingleRecipe({id})).unwrap();
+        }
+      }
+      
+  
+  // if(entities.recipes.length === 0){
+    //     dispatch(getAllRecipesFromMongodb())
+    // }
+    // if(entities.recipes.length > 0){
+    //     const imgRecipe = entities.recipes.find((item)=>item._id === id);
+    //     SetRecipe(imgRecipe);
+    // }
+    callOneRecipe();
+},[dispatch,id,oneRecipe])
 
-  if (!recipe) return <div>Loading...</div>;
+  // if (!oneRecipe) return <div>Loading...</div>;
+  console.log(oneRecipe)
 
-  const imgSrc = `data:image/png;base64,${recipe.thumbnail}`;
+  const imgSrc = `data:image/png;base64,${oneRecipe?.thumbnail}`;
 
   return (
     <div className="image-view-wrapper">

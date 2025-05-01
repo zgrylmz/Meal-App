@@ -86,7 +86,7 @@ module.exports.getAuthenticatedUser = async(req,res)=>{
 
 module.exports.logout = async(req,res)=>{
     res.clearCookie("jwt");
-    res.json({message:"Logged out successful"});
+    res.json({redirectUrl:"/"});
 }
 
 module.exports.getAllUsers = async (req, res) => {
@@ -158,8 +158,8 @@ module.exports.getFavorites = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
-        res.json({ user });
+        // console.log(user);
+        res.json( {user} );
     } catch (error) {
         res.status(500).json({ message: "Error fetching favorites", error: error.message });
     }
