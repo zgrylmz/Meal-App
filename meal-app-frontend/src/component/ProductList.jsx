@@ -6,23 +6,24 @@ import SearchForCountries from './SearchForCountries';
 import FilterByCategories from './FilterByCategories';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { HiArchiveBoxXMark } from "react-icons/hi2";
 
 function ProductList() {
   const dispatch = useDispatch();
   const { entities } = useSelector((store) => store.recipeSlice);
   const [selectedCountry, setSelectedCountry] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
-  const [currentPage, setCurrentPage]= useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState()
   const [pageFromBackend, setPageFromBackend] = useState()
-  
+
   // const [fetchedData , SetfetchedData] = useState([])
 
   useEffect(() => {
     const fetchPaginatedRecipes = async () => {
       try {
         const alreadyFetched = entities?.recipes?.length > 0;
-    
+
         if (!alreadyFetched || currentPage != pageFromBackend) {
           const response = await dispatch(getRecipesPagination({ Page: currentPage })).unwrap();
           setTotalPages(response.totalPages);
@@ -33,12 +34,12 @@ function ProductList() {
       }
     };
     console.log(pageFromBackend)
-  
-    fetchPaginatedRecipes();
-  }, [currentPage, dispatch,pageFromBackend,entities?.recipes?.length]);
-  
 
-// console.log(fetchedData)
+    fetchPaginatedRecipes();
+  }, [currentPage, dispatch, pageFromBackend, entities?.recipes?.length]);
+
+
+  // console.log(fetchedData)
 
 
   const goToPage = (page) => {
@@ -57,34 +58,51 @@ function ProductList() {
     setSelectedCategory(dataCategory)
   }
 
+  const resetFilters = () => {
+    setSelectedCategory([]);
+    setSelectedCountry([]);
+    // setCurrentPage(1); // optional
+  };
+
   return (
     <>
       <div className='flex-category'>
-        <SearchForCountries filteredCountries={catchCountry} />
-        <FilterByCategories filterCategories={catchCategory} />
+        <SearchForCountries
+          filteredCountries={catchCountry}
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+        />
+
+        <FilterByCategories
+          filterCategories={catchCategory}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+
+        <HiArchiveBoxXMark style={{ fontSize: "xx-large", cursor: "pointer",marginTop:"15px" }} title='Reset' onClick={() => resetFilters()} />
       </div>
 
       <div className="recipes-container">
-        
+
 
         {
-           entities.recipes && ( 
+          entities.recipes && (
             selectedCategory.length > 0 && selectedCountry.length > 0 ?
-            entities.recipes.filter((item) => selectedCategory.includes(item.Category) && selectedCountry.includes(item.country))
+              entities.recipes.filter((item) => selectedCategory.includes(item.Category) && selectedCountry.includes(item.country))
                 .map((recipe, id) => (
                   <Recipes key={id} recipe={recipe} />
                 )) :
               selectedCategory.length > 0 ?
-              entities.recipes.filter((item) => selectedCategory.includes(item.Category))
+                entities.recipes.filter((item) => selectedCategory.includes(item.Category))
                   .map((recipe, id) => (
                     <Recipes key={id} recipe={recipe} />
                   )) :
                 selectedCountry.length > 0 ?
-                entities.recipes.filter((item) => selectedCountry.includes(item.country))
+                  entities.recipes.filter((item) => selectedCountry.includes(item.country))
                     .map((recipe, id) => (
                       <Recipes key={id} recipe={recipe} />
                     )) :
-                    entities.recipes.map((recipe, id) => (
+                  entities.recipes.map((recipe, id) => (
                     <Recipes key={id} recipe={recipe} />
                   ))
           )

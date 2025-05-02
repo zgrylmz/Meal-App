@@ -15,6 +15,9 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import { MdOutlineVideoSettings } from "react-icons/md";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { useNavigate } from 'react-router';
+import { MdFavorite } from "react-icons/md";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaRegCommentDots } from "react-icons/fa6";
 
 
 export default function IconMenu() {
@@ -43,12 +46,12 @@ export default function IconMenu() {
           <ListItemText>Videos</ListItemText>
         </MenuItem>
         
-        <MenuItem onClick={() => navigate("/fertig")}>
+        {/* <MenuItem onClick={() => navigate("/fertig")}>
           <ListItemIcon>
             <ImSpoonKnife  fontSize="xx-large" />
           </ListItemIcon>
           <ListItemText>Fertig Menüs</ListItemText>
-        </MenuItem>
+        </MenuItem> */}
         
         {/* <MenuItem onClick={()=>navigate("/random-recipes")}>
           <ListItemIcon>
@@ -59,14 +62,14 @@ export default function IconMenu() {
 
         <MenuItem onClick={()=>navigate("/favorit-recipes")}>
           <ListItemIcon>
-            <GiPerspectiveDiceSixFacesRandom  fontSize="xx-large" />
+            <MdFavorite  fontSize="xx-large" />
           </ListItemIcon>
           <ListItemText>My Favorites</ListItemText>
         </MenuItem>
 
         <MenuItem onClick={()=>navigate("/show-my-comments")}>
           <ListItemIcon>
-            <GiPerspectiveDiceSixFacesRandom  fontSize="xx-large" />
+            <FaRegCommentDots   fontSize="xx-large" />
           </ListItemIcon>
           <ListItemText>My Comments</ListItemText>
         </MenuItem>
@@ -74,7 +77,7 @@ export default function IconMenu() {
 
         <MenuItem onClick={()=>navigate("/addYourRecipe")}>
           <ListItemIcon>
-            <GiPerspectiveDiceSixFacesRandom  fontSize="xx-large" />
+            <FaCloudUploadAlt    fontSize="xx-large" />
           </ListItemIcon>
           <ListItemText>New Recipe</ListItemText>
         </MenuItem>

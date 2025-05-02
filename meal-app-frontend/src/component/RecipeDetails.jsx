@@ -135,29 +135,55 @@ function ProductDetails() {
       <FaBackward style={{ fontSize: "xxx-large", cursor: "pointer" }} title='Go recipes' onClick={() => navigate("/Recipes")} />
 
       <div className="flex flex-col gap-4 p-4 max-w-2xl mx-auto">
-        {oneRecipe.comments?.map((c, i) => {
-          const isMyComment = c.IdOfTheuser === localStorageuserId;
-          return (
-            <div key={c._id} className="flex gap-4">
-              <Avatar sx={{ bgcolor: deepPurple[500] }} title={c.nameOfTheUser}>
-                {c.nameOfTheUser.charAt(0).toUpperCase()}
-              </Avatar>
-              <div>
-                <p className="font-semibold">
-                  <strong>{c.nameOfTheUser.substring(0, 1).toUpperCase() + c.nameOfTheUser.substring(1, 5)}</strong>
-                  <span className="text-gray-500 text-sm"> {c.createdAt ? formatDistanceToNow(new Date(c.createdAt)) + " Ago" : ""}</span>
-                </p>
-                <p className="text-gray-700 mt-1 whitespace-pre-line">{c.comment}</p>
-                {isMyComment && (
-                  <>
-                    <MdDeleteForever style={{ cursor: "pointer", fontSize: "large" }} onClick={() => deleteActiv(id, c._id, localStorageuserId)} />
-                    <MdOutlineUpdate style={{ cursor: "pointer", fontSize: "large", marginLeft: "10px" }} onClick={() => updateActiv(c._id, c.comment)} />
-                  </>
-                )}
-              </div>
-            </div>
-          );
-        })}
+      {oneRecipe.comments?.map((c, i) => {
+  const isMyComment = c.IdOfTheuser === localStorageuserId;
+  return (
+    <div
+      key={c._id}
+      style={{
+        backgroundColor: "#f9f9f9",
+        borderRadius: "10px",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+        padding: "1rem 1.5rem",
+        marginBottom: "1.2rem",
+        fontFamily: "'Segoe UI', sans-serif",
+        display: "flex",
+        gap: "1rem"
+      }}
+    >
+      <Avatar sx={{ bgcolor: deepPurple[500], flexShrink: 0 }}>
+        {c.nameOfTheUser?.charAt(0)?.toUpperCase()}
+      </Avatar>
+      <div style={{ flexGrow: 1 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <strong style={{ fontSize: "1.1rem" }}>
+            {c.nameOfTheUser?.charAt(0).toUpperCase() + c.nameOfTheUser?.slice(1)}
+          </strong>
+          <span style={{ fontSize: "0.8rem", color: "#777" }}>
+            {c.createdAt ? formatDistanceToNow(new Date(c.createdAt)) + " ago" : ""}
+          </span>
+        </div>
+        <p style={{ marginTop: "0.5rem", color: "#333", fontSize: "1rem" }}>{c.comment}</p>
+        {isMyComment && (
+          <div style={{ marginTop: "0.5rem", display: "flex", gap: "10px" }}>
+            <MdDeleteForever
+              style={{ cursor: "pointer", fontSize: "1.2rem", color: "#e53935" }}
+              onClick={() => deleteActiv(id, c._id, localStorageuserId)}
+              title="Delete"
+            />
+            <MdOutlineUpdate
+              style={{ cursor: "pointer", fontSize: "1.2rem", color: "#1976d2" }}
+              onClick={() => updateActiv(c._id, c.comment)}
+              title="Update"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+})}
+
+
 
         <div className="comments-section" style={{ display: "flex", alignItems: "flex-end", justifyContent: "left", marginBottom: "10px" }}>
           <TextareaAutosize

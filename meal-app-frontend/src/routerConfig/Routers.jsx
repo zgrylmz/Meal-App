@@ -7,11 +7,10 @@ import Sign from '../Pages/Sign';
 import ProductList from '../component/ProductList';
 import ProductDetails from '../component/RecipeDetails';
 import Videos from '../Pages/Videos';
-import FertigMenüs from '../Pages/FertigMenüs';
 import Favorites from '../Pages/Favorites';
-import RandomRezept from '../Pages/RandomRezept'
 import ImageView from '../component/ImageView';
 import Upload from '../Pages/Upload';
+import MyComments from '../Pages/MyComments';
 
 function Routers() {
 
@@ -26,7 +25,8 @@ function Routers() {
       <Route path="/" element={<Home />}/>
       <Route path="/Recipes" element={user ? <ProductList /> : <Navigate to="/login" />}/> 
       <Route path="/Videos" element={<Videos/>}/>
-      <Route path="/fertig" element={<FertigMenüs/>}/>
+      <Route path="/show-my-comments" element={<MyComments/>}/>
+      {/* <Route path="/fertig" element={<FertigMenüs/>}/>  */}
       <Route path='favorit-recipes' element={user ? <Favorites/> : <Navigate to="/login"/>}/>
       <Route path="/imageview/:id" element={<ImageView />} />
       <Route path='/addYourRecipe' element={user ? <Upload/> : <Navigate to="/login"/> }/> 

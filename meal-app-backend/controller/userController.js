@@ -188,3 +188,17 @@ module.exports.removeFromFavorites = async(req,res)=>{
 }
 
 }
+
+
+module.exports.getCommentsOfUser = async(req,res)=>{
+    const {userId} = req.body;
+    try {
+        const getComments = await Users.findById(userId).select("commentsOfUser");
+        if(!getComments){
+            return res.json("There is no comment");
+        }
+        res.json(getComments);
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+}

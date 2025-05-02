@@ -36,16 +36,30 @@ export const updateComment = createAsyncThunk("updateComment", async ({ id, comm
   return response.data;
 });
 
+export const callComents = createAsyncThunk("callComents",async({userId})=>{
+  const response = await axios.post(`${import.meta.env.VITE_API_URL}/getComments`,{userId},{withCredentials:true});
+ return response.data;
+
+});
+
+
 
 
 
 
 const counterSlice = createSlice({
   name: 'CommentSlice',
-  initialState:{},
+  initialState:{
+    comments:[]
+  },
   reducers: {
  
   },
+  extraReducers:(builder)=>{
+    builder.addCase(callComents.fulfilled,(state,action)=>{
+      state.comments = action.payload;
+    })
+  }
 })
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions

@@ -1,58 +1,55 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logoutUser } from "../Redux/recipeSlice/authSlice";
-import "../Css/header.css"
+import "../Css/header.css";
 import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
 import { IoIosHome } from "react-icons/io";
-import { deepOrange, deepPurple } from '@mui/material/colors';
+import { deepPurple } from '@mui/material/colors';
+import { ImSpoonKnife } from "react-icons/im";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.auth);
 
-
   const handleLogout = () => {
     dispatch(logoutUser());
-    // location.reload();
-    // if(redirectUrl){
-      navigate("/login");
-    // }
+    navigate("/login");
   };
 
-
-
-
   return (
-    <div>
+    <header className="custom-header">
+      <div className="header-left" onClick={() => navigate("/")}>
+      <ImSpoonKnife /> <span className="brand-name">MealApp</span>
+      </div>
 
-      <div className='header'>
-        <p style={{ marginRight: "75%" }}>
-          The Meal App
-        </p>
+      <nav className="header-nav">
+        {/* Add these only if needed */}
+        {/* <a href="#">Features</a>
+        <a href="#">Recipes</a>
+        <a href="#">Pricing</a> */}
+      </nav>
+
+      <div className="header-right">
         {user ? (
           <>
-            <Stack direction="row" spacing={1}>
-              <Avatar sx={{ bgcolor: deepPurple[500] }} title={`${user.name}`}>{user.name.substring(0,1)}</Avatar>
-            </Stack>
-            {/* <span>Welcome, {user.name}</span> */}
-            <button onClick={() => handleLogout()} className='headerIcon'>Logout</button>
-            <button onClick={() => navigate("/")} className='headerIcon'><IoIosHome /></button>
-
+            <Avatar sx={{ bgcolor: deepPurple[500] }} title={user.name}>
+              {user.name.charAt(0).toUpperCase()}
+            </Avatar>
+            <button onClick={handleLogout} className="header-btn">Logout</button>
+            <button onClick={() => navigate("/")} className="header-btn">
+              <IoIosHome />
+            </button>
           </>
         ) : (
           <>
-            <button onClick={() => navigate("/")} className='headerIcon'><IoIosHome /></button>
-            <button onClick={() => navigate("/login")} className='headerIcon'>Login</button>
-            <button onClick={() => navigate("/sign")} className='headerIcon'>Sign up</button>
-
+            <button onClick={() => navigate("/login")} className="header-btn">Sign in</button>
+            <button onClick={() => navigate("/sign")} className="header-btn primary">Sign up</button>
           </>
         )}
       </div>
-    </div>
-
+    </header>
   );
 }
 

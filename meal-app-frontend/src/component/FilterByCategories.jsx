@@ -30,20 +30,20 @@ const countries = [
  
 ];
 
-export default function FilterByCategories({filterCategories}) {
-  const [category, setCategory] = useState([]);
+export default function FilterByCategories({filterCategories,selectedCategory,setSelectedCategory}) {
+  // const [category, setCategory] = useState([]);
     
   useEffect(() => {
     
-      filterCategories(category);
+      filterCategories(selectedCategory);
     
-  }, [category,filterCategories]);
+  }, [filterCategories,selectedCategory]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setCategory(
+    setSelectedCategory(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
@@ -59,7 +59,7 @@ export default function FilterByCategories({filterCategories}) {
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
-          value={category}
+          value={selectedCategory}
           onChange={handleChange}
           input={<OutlinedInput label="Filter by categories" />}
           renderValue={(selected) => selected.join(', ')}
@@ -68,7 +68,7 @@ export default function FilterByCategories({filterCategories}) {
           {countries.map((name) => (
          
             <MenuItem key={name} value={name}>
-              <Checkbox checked={category.includes(name)} />
+              <Checkbox checked={selectedCategory?.includes(name)} />
               <ListItemText primary={name} />
               
             </MenuItem>
