@@ -17,15 +17,7 @@ useEffect(()=>{
           await dispatch(getOneSingleRecipe({id})).unwrap();
         }
       }
-      
-  
-  // if(entities.recipes.length === 0){
-    //     dispatch(getAllRecipesFromMongodb())
-    // }
-    // if(entities.recipes.length > 0){
-    //     const imgRecipe = entities.recipes.find((item)=>item._id === id);
-    //     SetRecipe(imgRecipe);
-    // }
+
     callOneRecipe();
 },[dispatch,id,oneRecipe])
 

@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <>
     <h1>ingredients</h1>
-    <h3>Recipes with the products you selected will be displayed.</h3>
+    <h3>Recipes with the ingredient you selected will be displayed.</h3>
     <Box
       sx={{
         display: 'flex',
@@ -68,7 +68,7 @@ export default function Home() {
         <Card
           key={item.title}
           variant="outlined"
-          sx={{ width: 300, flexDirection: 'column' }}
+          sx={{ width: 250, flexDirection: 'column' }}
           
         >
           <AspectRatio minHeight="200px" style={{cursor:"pointer"}}>
