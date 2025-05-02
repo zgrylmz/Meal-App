@@ -4,4 +4,4 @@ add them to their favorites and even comment. You can filter the recipes of the 
 if you want to see desserts, you can select dessert from the category section and then easily find recipes with dessert categories.
 
 
-********************************I have created a folder its name Screenshots so you can see there different photos of my Meal App*******************************************************
+**I have created a folder its name Screenshots so you can see there different photos of my Meal App**
