@@ -335,3 +335,29 @@ module.exports.deleteOneRecipe= async(req,res)=>{
       res.status(404).json({error:error.message});
   }
 }
+
+
+module.exports.getRecipePerIngredient = async(req,res)=>{
+  const {ingredientName} = req.body;
+  try {
+      const MyIngredients = []
+
+     
+        const RecipesWithThisIngredient = await Recipe.find();
+        
+        RecipesWithThisIngredient.map((item)=>{
+          ingredientName.map((ingredient)=>{
+            item.ingredients.map((ing)=>{
+              if(ing.includes(ingredient)){
+                MyIngredients.push(item)
+              }
+            })
+            
+          })
+        });
+          const removeDuplicatesFromArray = [...new Set(MyIngredients)];
+      res.json(removeDuplicatesFromArray);
+  } catch (error) {
+    res.status(500).json({message:error.message}); 
+  }
+}

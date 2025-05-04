@@ -4,6 +4,7 @@ import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Box from '@mui/joy/Box';
+import { useNavigate } from 'react-router';
 
 const data = [
   {
@@ -51,6 +52,7 @@ const data = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <>
     <h1>ingredients</h1>
@@ -78,6 +80,8 @@ export default function Home() {
               src={`${item.src}?w=300&h=200&fit=crop&auto=format`}
               alt={item.title}
               loading="lazy"
+              onClick={()=>navigate("/Recipes-with-ingredient")}
+              
             />
           </AspectRatio>
           <CardContent>
