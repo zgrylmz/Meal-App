@@ -3,6 +3,7 @@
 Meal App is a user-friendly recipe platform where you can discover, share, and manage your favorite meals from around the world.
 
 🔑 Features
+
 ✅ User Registration: Sign up and create your personal account
 
 📖 Browse Recipes: Explore a wide range of recipes from different cuisines
