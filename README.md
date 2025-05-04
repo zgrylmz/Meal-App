@@ -1,6 +1,5 @@
 
-🍽️ Meal App
-Meal App is a user-friendly recipe platform where you can discover, share, and manage your favorite meals from around the world.
+🍽️ Meal App is a user-friendly recipe platform where you can discover, share, and manage your favorite meals from around the world.
 
 🔑 Features
 
