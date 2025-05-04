@@ -1,7 +1,11 @@
-This is a recipe application, you can see different recipes in this application. First of all, you need to register on the site and open an account, then you can see different recipes, 
-you can add the recipes you like to your favorites. After opening an account, you can also create a new recipe, if you want, you can delete this recipe. Other accounts can also see the recipes you create,
-add them to their favorites and even comment. You can filter the recipes of the countries you want with more than one filter method or you can filter the recipes according to different categories; for example,
-if you want to see desserts, you can select dessert from the category section and then easily find recipes with dessert categories.
 
+This is a recipe application where users can explore a wide variety of meals. To get started, simply register and create an account. Once registered, you’ll be able to:
+-Browse and view different recipes
+-Add your favorite recipes to your personal favorites list
+-Create and publish your own recipes
+-Edit or delete the recipes you’ve created
+-View and comment on recipes created by other users
+-Rate each recipe using a star-based rating system
+-Additionally, users can filter recipes by country or category. For example, if you're looking for desserts, you can select the "Dessert" category to easily find relevant recipes.
 
-**I have created a folder its name Screenshots so you can see there different photos of my Meal App**
+**A folder named “Screenshots” is included, where you can view images of the Meal App and its features.**
