@@ -19,5 +19,4 @@
 
 🔍 Advanced Filtering: Filter recipes by country and category (e.g., desserts, vegetarian, etc.)
 
-📸 Screenshots
-A folder named Screenshots is included, showcasing the Meal App interface and features.
+📸 A folder named Screenshots is included, showcasing the Meal App interface and features.
