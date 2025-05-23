@@ -9,11 +9,29 @@ const cookieParser = require("cookie-parser");
 const app = express();
 dotenv.config();
 
+const allowedOrigins = [
+  'https://newmealapp.netlify.app',
+  'https://6830f0d4dd6bf83a3db5a52d--newmealapp.netlify.app'
+];
+
+
 //Bu arada body-parser(yani express.json()) disardan post islemleri icin gerekli
+// app.use(cors({
+//     origin: "https://6830f0d4dd6bf83a3db5a52d--newmealapp.netlify.app", // ✅ Update this to match your frontend URL
+//     credentials: true  // ✅ Allow sending cookies
+// }));
+
 app.use(cors({
-    origin: "https://6830f0d4dd6bf83a3db5a52d--newmealapp.netlify.app", // ✅ Update this to match your frontend URL
-    credentials: true  // ✅ Allow sending cookies
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
+
 app.use(express.json()); //siralama önemli önce body-parser daha sonra userRouter express.json()' in icinde body-parser var görevi de post islemleri icin gerekli
 app.use(cookieParser()); //tokenlari require ile cekerken buna ihtiyacimiz var
 app.use(usersRouter);
