@@ -53,21 +53,21 @@ const data = [
 
 ];
 
-const initialArtists = [
-  {id:1,name:"name1"},
-  {id:2,name:"name2"},
-  {id:3,name:"name3"}
-]
+// const initialArtists = [
+//   {id:1,name:"name1"},
+//   {id:2,name:"name2"},
+//   {id:3,name:"name3"}
+// ]
 
 export default function Home() {
   const navigate = useNavigate();
-  const [arr1, setArr1] = useState(initialArtists);
+  // const [arr1, setArr1] = useState(initialArtists);
   const redirectionToThePage =(ingredientName)=>{
     navigate("/Recipes-with-ingredient",{state:{info: ingredientName}});
   }
 
   
-  console.log(arr1)
+  // console.log(arr1)
 
 
   return (
@@ -76,14 +76,14 @@ export default function Home() {
     <h1>ingredients</h1>
     <h3>Recipes with the ingredient you selected will be displayed.</h3>
     
-    {
-      arr1.map((item)=>(
-        <>
-        <div style={{color:"black",fontFamily:"fantasy"}}>{item.name}</div>
-        <button onClick={()=>setArr1(arr1.filter((data)=>data.id!=item.id))}>delete</button>
-        </>
-      ))
-    }
+   {
+     // arr1.map((item)=>(
+       // <>
+        //<div style={{color:"black",fontFamily:"fantasy"}}>{item.name}</div>
+        //</><button onClick={()=>setArr1(arr1.filter((data)=>data.id!=item.id))}>delete</button>
+        //</>
+      //))
+    } 
    
    
     <Box
