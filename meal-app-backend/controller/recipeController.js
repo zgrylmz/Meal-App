@@ -348,7 +348,7 @@ module.exports.getRecipePerIngredient = async(req,res)=>{
         RecipesWithThisIngredient.map((item)=>{
           ingredientName.map((ingredient)=>{
             item.ingredients.map((ing)=>{
-              if(ing.includes(ingredient)){
+              if(ing.toLocaleLowerCase().includes(ingredient.toLowerCase())){
                 MyIngredients.push(item)
               }
             })

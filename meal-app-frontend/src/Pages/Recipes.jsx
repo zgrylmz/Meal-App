@@ -20,7 +20,6 @@ import { useState } from 'react';
 function Recipes({ recipe }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [totalScore, setTotalScore] = useState();
 
 
 
@@ -82,7 +81,7 @@ function Recipes({ recipe }) {
               Details
             </Button>
             <Stack spacing={1}>
-              <Rating name="half-rating" defaultValue={recipe.rating/recipe.numberOfRating} precision={0.5} onChange={(e) => dispatch(setRatingsOfRecipes({ rating: Number(e.target.value), userId: storedUserId, recipeName: name, numberOfRating: 1, id: recipe._id }))} />
+              <Rating name="half-rating" value={rating > 0 ? rating/numberOfRating : 0} precision={0.5} onChange={(e) => dispatch(setRatingsOfRecipes({ rating: Number(e.target.value), userId: storedUserId, recipeName: name, numberOfRating: 1, id: recipe._id }))} />
             </Stack>
           </CardActions>
           {

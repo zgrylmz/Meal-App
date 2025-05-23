@@ -4,6 +4,7 @@ import authCheck from "../recipeSlice/authSlice"
 import addFavorite from "../recipeSlice/addFavoriteRecipes"
 import setRankings from "../recipeSlice/rankingSlice"
 import saveComments from "../recipeSlice/commentSlice"
+import getRecipesWithIngredient from "../recipeSlice/ingredientSlice"
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,6 @@ export const store = configureStore({
     favoriteRecipes:addFavorite,
     rankingSlice:setRankings,
     CommentSlice:saveComments,
-
+    IngredientSlice: getRecipesWithIngredient,
   },
 })

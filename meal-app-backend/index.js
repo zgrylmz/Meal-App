@@ -11,7 +11,7 @@ dotenv.config();
 
 //Bu arada body-parser(yani express.json()) disardan post islemleri icin gerekli
 app.use(cors({
-    origin: "http://localhost:5173", // ✅ Update this to match your frontend URL
+    origin: "http://localhost:5174", // ✅ Update this to match your frontend URL
     credentials: true  // ✅ Allow sending cookies
 }));
 app.use(express.json()); //siralama önemli önce body-parser daha sonra userRouter express.json()' in icinde body-parser var görevi de post islemleri icin gerekli

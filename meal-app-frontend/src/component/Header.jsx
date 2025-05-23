@@ -1,17 +1,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { logoutUser } from "../Redux/recipeSlice/authSlice";
 import "../Css/header.css";
 import Avatar from '@mui/material/Avatar';
 import { IoIosHome } from "react-icons/io";
 import { deepPurple } from '@mui/material/colors';
 import { ImSpoonKnife } from "react-icons/im";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { inputForSearch } from '../Redux/recipeSlice/recipeSlice';
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.auth);
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -24,12 +28,16 @@ function Header() {
       <ImSpoonKnife /> <span className="brand-name">MealApp</span>
       </div>
 
-      <nav className="header-nav">
-        {/* Add these only if needed */}
-        {/* <a href="#">Features</a>
-        <a href="#">Recipes</a>
-        <a href="#">Pricing</a> */}
-      </nav>
+  {
+    location.pathname === "/Recipes" ?  <Box
+      component="form"
+      sx={{ '& > :not(style)': { m: 1, width: '45ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField id="standard-basic" label="Search a recipe" variant="standard" onChange={(e)=>dispatch(inputForSearch(e.target.value))}/>
+    </Box> : ""
+  }
 
       <div className="header-right">
         {user ? (

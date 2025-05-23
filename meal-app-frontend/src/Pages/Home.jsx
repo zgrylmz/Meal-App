@@ -5,6 +5,8 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Box from '@mui/joy/Box';
 import { useNavigate } from 'react-router';
+import RecipesWithIngredient from './RecipesWithIngredient';
+import { useState } from 'react';
 
 const data = [
   {
@@ -44,19 +46,46 @@ const data = [
   },
   {
     src: 'https://www.themealdb.com/images/ingredients/potatoes.png',
-    title: 'Strawberries',
+    title: 'Potatoes',
     description: '4.74M views',
   }
 
 
 ];
 
+const initialArtists = [
+  {id:1,name:"name1"},
+  {id:2,name:"name2"},
+  {id:3,name:"name3"}
+]
+
 export default function Home() {
   const navigate = useNavigate();
+  const [arr1, setArr1] = useState(initialArtists);
+  const redirectionToThePage =(ingredientName)=>{
+    navigate("/Recipes-with-ingredient",{state:{info: ingredientName}});
+  }
+
+  
+  console.log(arr1)
+
+
   return (
     <>
+  
     <h1>ingredients</h1>
     <h3>Recipes with the ingredient you selected will be displayed.</h3>
+    
+    {
+      arr1.map((item)=>(
+        <>
+        <div style={{color:"black",fontFamily:"fantasy"}}>{item.name}</div>
+        <button onClick={()=>setArr1(arr1.filter((data)=>data.id!=item.id))}>delete</button>
+        </>
+      ))
+    }
+   
+   
     <Box
       sx={{
         display: 'flex',
@@ -80,7 +109,7 @@ export default function Home() {
               src={`${item.src}?w=300&h=200&fit=crop&auto=format`}
               alt={item.title}
               loading="lazy"
-              onClick={()=>navigate("/Recipes-with-ingredient")}
+              onClick={()=>redirectionToThePage(item.title)}
               
             />
           </AspectRatio>

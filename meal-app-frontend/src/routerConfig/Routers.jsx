@@ -34,6 +34,7 @@ function Routers() {
       {/* Bu üst kisimdaki ekstra önlem söyleki middleware i sildigin zaman bu kisim ekstra koruma gibi düsün f12 application kismindan uydurma user ve value uydurursan yine de icerigi görebilirsin ama bu  middleware i silersen ortaya cikar aklinda bulunsun  */}
       <Route path="/recipe-details/:id" element={user ? <ProductDetails/> : <Navigate to="login"/>} />
       <Route path='/Recipes-with-ingredient' element={<RecipesWithIngredient/>} />
+      
     </Routes>
   );
 }

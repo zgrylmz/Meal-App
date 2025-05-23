@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllRecipesFromMongodb, getRecipesPagination } from '../Redux/recipeSlice/recipeSlice';
 import Recipes from '../Pages/Recipes';
@@ -16,30 +16,37 @@ function ProductList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState()
   const [pageFromBackend, setPageFromBackend] = useState()
+  const expensiveData = useRef(null)
+  const [recipes, setRecipes] = useState([]);
+  const {input} = useSelector((store)=>store.recipeSlice);
+  console.log(input)
 
-  // const [fetchedData , SetfetchedData] = useState([])
 
   useEffect(() => {
     const fetchPaginatedRecipes = async () => {
       try {
         const alreadyFetched = entities?.recipes?.length > 0;
 
-        if (!alreadyFetched || currentPage != pageFromBackend) {
-          const response = await dispatch(getRecipesPagination({ Page: currentPage })).unwrap();
-          setTotalPages(response.totalPages);
-          setPageFromBackend(response.page);
+        if (!expensiveData.current || pageFromBackend!=currentPage ) {
+          const data = await dispatch(getRecipesPagination({ Page: currentPage })).unwrap();
+          expensiveData.current = data;
+          setRecipes(data);
+          setTotalPages(data.totalPages);
+          setPageFromBackend(data.page);
+        }else {
+          setRecipes(expensiveData.current); // use cached
         }
       } catch (error) {
         console.error('Error fetching paginated recipes:', error);
       }
     };
     console.log(pageFromBackend)
+    console.log(recipes.recipes)
 
     fetchPaginatedRecipes();
   }, [currentPage, dispatch, pageFromBackend, entities?.recipes?.length]);
 
 
-  // console.log(fetchedData)
 
 
   const goToPage = (page) => {
@@ -48,7 +55,11 @@ function ProductList() {
     }
   };
 
+  const filterWithInput = useMemo(()=>{
+    return recipes?.recipes?.filter((item)=>item.name?.toLowerCase().includes(input?.toLowerCase()));
 
+  },[input,recipes?.recipes])
+  console.log(filterWithInput);
 
   const catchCountry = (dataCountry) => {
     setSelectedCountry(dataCountry);
@@ -63,7 +74,6 @@ function ProductList() {
     setSelectedCountry([]);
     // setCurrentPage(1); // optional
   };
-
   return (
     <>
       <div className='flex-category'>
@@ -83,10 +93,10 @@ function ProductList() {
       </div>
 
       <div className="recipes-container">
-
+    
 
         {
-          entities.recipes && (
+           recipes.recipes && (
             selectedCategory.length > 0 && selectedCountry.length > 0 ?
               entities.recipes.filter((item) => selectedCategory.includes(item.Category) && selectedCountry.includes(item.country))
                 .map((recipe, id) => (
@@ -102,10 +112,14 @@ function ProductList() {
                     .map((recipe, id) => (
                       <Recipes key={id} recipe={recipe} />
                     )) :
+                    filterWithInput ? filterWithInput.map((recipe,id)=>(
+                   <Recipes key={id} recipe={recipe} />
+                  )) :
                   entities.recipes.map((recipe, id) => (
                     <Recipes key={id} recipe={recipe} />
-                  ))
-          )
+                  )) 
+           )
+          
         }
 
       </div>

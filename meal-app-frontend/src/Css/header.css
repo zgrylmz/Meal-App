@@ -1,70 +1,4 @@
-.custom-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #d4d7db;
-  padding: 12px 24px;
-  border-radius: 12px;
-  margin: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  font-family: 'Segoe UI', sans-serif;
-}
 
-.header-left {
-  font-size: 20px;
-  font-weight: bold;
-  color: #2f3b52;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.brand-name {
-  margin-left: 6px;
-}
-
-.header-nav a {
-  margin: 0 12px;
-  color: #3a4b6d;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.header-nav a:hover {
-  color: #1e40af;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-btn {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: none;
-  background-color: #f0f0f5;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-}
-
-.header-btn:hover {
-  background-color: #e0e7ff;
-}
-
-.header-btn.primary {
-  background-color: #111827;
-  color: white;
-}
-
-.header-btn.primary:hover {
-  background-color: #1f2937;
-}
 .custom-header {
   display: flex;
   justify-content: space-between;
@@ -78,7 +12,10 @@
   top: 0;
   z-index: 999;
   font-family: 'Segoe UI', sans-serif;
+  height:50px
 }
+
+
 
 .header-left {
   font-size: 20px;
@@ -132,3 +69,4 @@
 .header-btn.primary:hover {
   background-color: #1f2937;
 }
+

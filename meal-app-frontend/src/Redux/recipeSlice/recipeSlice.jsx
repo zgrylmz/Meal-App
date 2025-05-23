@@ -32,8 +32,13 @@ export const recipeSlice = createSlice({
     entities: [],
     loading:false,
     oneRecipe:null,
+    input:null,
   },
-  reducers: {},
+  reducers: {
+    inputForSearch:(state,action)=>{
+      state.input = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     
     builder.addCase(getRecipesPagination.pending,(state,action)=>{
@@ -55,4 +60,5 @@ export const recipeSlice = createSlice({
   }
 });
 
+export const { inputForSearch } = recipeSlice.actions;
 export default recipeSlice.reducer;
