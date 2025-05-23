@@ -11,7 +11,7 @@ dotenv.config();
 
 //Bu arada body-parser(yani express.json()) disardan post islemleri icin gerekli
 app.use(cors({
-    origin: "https://6830f0d4dd6bf83a3db5a52d--newmealapp.netlify.app/", // ✅ Update this to match your frontend URL
+    origin: "https://6830f0d4dd6bf83a3db5a52d--newmealapp.netlify.app", // ✅ Update this to match your frontend URL
     credentials: true  // ✅ Allow sending cookies
 }));
 app.use(express.json()); //siralama önemli önce body-parser daha sonra userRouter express.json()' in icinde body-parser var görevi de post islemleri icin gerekli
