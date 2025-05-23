@@ -16,8 +16,8 @@ router.delete("/deleteComment", recipeController.deleteComment);
 router.put("/updateComment", recipeController.updateComment)
 router.get("/getAllRecipesPegination/:page", recipeController.getAllRecipesPegination);
 router.get("/getOneSingleRecipe/:id", recipeController.getOneSingleRecipe);
-router.post("/getRecipesByName", recipeController.getRecipesPerName);
-router.post("/getRecipeByIngredient", recipeController.getRecipePerIngredient)
+router.post("/getRecipesByName", requiredToken,recipeController.getRecipesPerName);
+router.post("/getRecipeByIngredient", requiredToken,recipeController.getRecipePerIngredient)
 
 
 

@@ -84,10 +84,16 @@ module.exports.getAuthenticatedUser = async(req,res)=>{
     });
 }
 
-module.exports.logout = async(req,res)=>{
-    res.clearCookie("jwt");
-    res.json({redirectUrl:"/"});
-}
+module.exports.logout = async (req, res) => {
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    secure: true,         // must match what you set on login
+    sameSite: "None",     // must match what you set on login
+    path: "/"             // VERY important, default path must match
+  });
+
+  res.json({ message: "Logged out" });
+};
 
 module.exports.getAllUsers = async (req, res) => {
     try {
