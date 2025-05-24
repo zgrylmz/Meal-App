@@ -36,7 +36,7 @@ function ProductDetails() {
   useEffect(() => {
     const fetchData = async () => {
       if (!oneRecipe?._id || oneRecipe._id !== id) {
-        await dispatch(getOneSingleRecipe({ id })).unwrap();
+        await dispatch(getOneSingleRecipe( id )).unwrap();
       }
       if (!favoriteRecipe) {
         await dispatch(callFavoriteRecipes({ userId: localStorageuserId} )).unwrap();

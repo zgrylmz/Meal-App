@@ -7,7 +7,7 @@ export const getAllRecipesFromMongodb = createAsyncThunk("getRecipes", async () 
 });
 
 
-export const getOneSingleRecipe = createAsyncThunk("getOneSingleRecipe",async({id})=>{
+export const getOneSingleRecipe = createAsyncThunk("getOneSingleRecipe",async(id)=>{
   const response = await axios.post(`${import.meta.env.VITE_API_URL}/getOneSingleRecipe/${id}`,
   {withCredentials:true});
   return response.data;
