@@ -39,7 +39,7 @@ function ProductDetails() {
         await dispatch(getOneSingleRecipe({ id })).unwrap();
       }
       if (!favoriteRecipe) {
-        await dispatch(callFavoriteRecipes({ userId: localStorageuserId })).unwrap();
+        await dispatch(callFavoriteRecipes({ userId: localStorageuserId} )).unwrap();
       }
     };
     fetchData();

@@ -12,7 +12,7 @@ export const addFavoriteRecipes = createAsyncThunk("addFavoriteRecipes", async (
     return null;
 });
 
-export const callFavoriteRecipes = createAsyncThunk("callFavoriteRecipes", async ( userId ) => {
+export const callFavoriteRecipes = createAsyncThunk("callFavoriteRecipes", async ( {userId} ) => {
     const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/favorites/${userId}`, 
         { withCredentials: true }

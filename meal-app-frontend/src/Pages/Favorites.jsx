@@ -48,8 +48,7 @@ function Favorites() {
      
       if (favoriteRecipe?.favorites?.length > 0) {
         try {
-          await dispatch(getFavoritRecipesWithContent({recipeName: favoriteRecipe.favorites,}).unwrap()
-          );
+          await dispatch(getFavoritRecipesWithContent({recipeName: favoriteRecipe.favorites})).unwrap();
         } catch (err) {
           console.error('Error fetching full recipes:', err);
         }
