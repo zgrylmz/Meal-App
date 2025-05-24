@@ -70,7 +70,7 @@ module.exports.getRecipePerId= async(req,res)=>{
 module.exports.getDesserts = async(req,res)=>{
         const {category} = req.body
     try {
-    const beefRecipes = await Recipe.find({ Category: category });
+    const beefRecipes = await Recipe.find({ Category: "Beef" });
     // const beefRecipes1 = await Recipe.find({Category:"Pasta"})
     // const beefRecipes2 = await Recipe.find().select("Category"); 
 

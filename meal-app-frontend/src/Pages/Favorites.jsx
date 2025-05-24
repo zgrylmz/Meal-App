@@ -29,10 +29,10 @@ function Favorites() {
     const fetchFavorites = async () => {
       try {
         if (!userId && storedUserId) {
-          dispatch(setUserId(storedUserId));
-          await dispatch(callFavoriteRecipes({ userId: storedUserId }));
+          await dispatch(setUserId(storedUserId)).unwrap();
+          await dispatch(callFavoriteRecipes({ userId: storedUserId })).unwrap();
         } else if (userId) {
-          await dispatch(callFavoriteRecipes({ userId }));
+          await dispatch(callFavoriteRecipes({ userId })).unwrap();
         }
       } catch (err) {
         console.error('Error loading favorites:', err);
@@ -48,7 +48,7 @@ function Favorites() {
      
       if (favoriteRecipe?.favorites?.length > 0) {
         try {
-          await dispatch(getFavoritRecipesWithContent({recipeName: favoriteRecipe.favorites,})
+          await dispatch(getFavoritRecipesWithContent({recipeName: favoriteRecipe.favorites,}).unwrap()
           );
         } catch (err) {
           console.error('Error fetching full recipes:', err);

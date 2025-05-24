@@ -36,7 +36,7 @@ export default function RecipesWithIngredient() {
       }
     }
    fetchData();
-  },[dispatch])
+  },[dispatch,ingredientName])
 
 // console.log(ingredientArr);
 console.log(recipeWithIngredient)

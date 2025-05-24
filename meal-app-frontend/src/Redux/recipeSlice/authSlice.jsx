@@ -21,6 +21,7 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout`, {}, { withCredentials: true });
     localStorage.removeItem("user"); // ✅ Remove user from local storage
     localStorage.removeItem("userId");
+    // localStorage.removeItem("jwt");
     return response.data;
 });
 

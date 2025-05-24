@@ -22,7 +22,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchPaginatedRecipes = async () => {
       try {
-        const alreadyFetched = entities?.recipes?.length > 0;
+        // const alreadyFetched = entities?.recipes?.length > 0;
 
         if (!expensiveData.current || pageFromBackend !== currentPage) {
           const data = await dispatch(getRecipesPagination({ Page: currentPage })).unwrap();
@@ -39,7 +39,7 @@ const ProductList = () => {
     };
 
     fetchPaginatedRecipes();
-  }, [currentPage, dispatch, pageFromBackend]);
+  }, [currentPage, dispatch, pageFromBackend,entities?.recipes?.length]);
 
   const goToPage = (page) => {
     if (page >= 1 && page <= (totalPages || 1)) {
@@ -47,12 +47,12 @@ const ProductList = () => {
     }
   };
 
-  const filterWithInput = useMemo(() => {
-    if (!input || !recipes?.recipes) return [];
-    return recipes.recipes.filter(item =>
-      item.name?.toLowerCase().includes(input.toLowerCase())
-    );
-  }, [input, recipes?.recipes]);
+  // const filterWithInput = useMemo(() => {
+  //   if (!input || !recipes?.recipes) return [];
+  //   return recipes.recipes.filter(item =>
+  //     item.name?.toLowerCase().includes(input.toLowerCase())
+  //   );
+  // }, [input, recipes?.recipes]);
 
   const catchCountry = (dataCountry) => {
     setSelectedCountry(dataCountry);

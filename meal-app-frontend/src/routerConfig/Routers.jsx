@@ -26,14 +26,14 @@ function Routers() {
       <Route path="/" element={<Home />}/>
       <Route path="/Recipes" element={user ? <ProductList /> : <Navigate to="/login" />}/> 
       <Route path="/Videos" element={<Videos/>}/>
-      <Route path="/show-my-comments" element={<MyComments/>}/>
+      <Route path="/show-my-comments" element={user ?<MyComments/> : <Navigate to="/login"/>}/>
       {/* <Route path="/fertig" element={<FertigMenüs/>}/>  */}
       <Route path='favorit-recipes' element={user ? <Favorites/> : <Navigate to="/login"/>}/>
       <Route path="/imageview/:id" element={<ImageView />} />
       <Route path='/addYourRecipe' element={user ? <Upload/> : <Navigate to="/login"/> }/> 
       {/* Bu üst kisimdaki ekstra önlem söyleki middleware i sildigin zaman bu kisim ekstra koruma gibi düsün f12 application kismindan uydurma user ve value uydurursan yine de icerigi görebilirsin ama bu  middleware i silersen ortaya cikar aklinda bulunsun  */}
       <Route path="/recipe-details/:id" element={user ? <ProductDetails/> : <Navigate to="login"/>} />
-      <Route path='/Recipes-with-ingredient' element={<RecipesWithIngredient/>} />
+      <Route path='/Recipes-with-ingredient' element={user ? <RecipesWithIngredient/> : <Navigate to="/login"/>} />
       
     </Routes>
   );

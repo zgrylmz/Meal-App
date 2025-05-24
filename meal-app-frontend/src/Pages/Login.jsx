@@ -37,7 +37,7 @@ function Login() {
         // Send a POST request to the backend
         
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, values,{withCredentials:true});
-          console.log(response);
+          console.log(response.data);
        if(response.data.redirectUrl){
           dispatch(loginUser(response.data.user))
           dispatch(setUserId(response.data.user.id))
