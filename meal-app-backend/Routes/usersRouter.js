@@ -13,7 +13,7 @@ router.post("/logout", userController.logout);
 router.post("/sign",userController.signUp);
 router.post("/add-favorite", userController.addFavorite);
 router.post("/removeFavoriteItem",userController.removeFromFavorites);
-router.get("/favorites/:userId", requiredToken,userController.getFavorites);
+router.get("/favorites/:userId",userController.getFavorites);
 router.post("/getComments",userController.getCommentsOfUser)
 
 // router.get("/Sign/:id",userController.signUpConfirm);

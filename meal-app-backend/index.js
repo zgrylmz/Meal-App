@@ -11,7 +11,7 @@ dotenv.config();
 
 const allowedOrigins = [
   'https://newmealapp.netlify.app',
-  'https://6830f0d4dd6bf83a3db5a52d--newmealapp.netlify.app',
+  'https://68321c6e752e790008262889--newmealapp.netlify.app',
   'http://localhost:5173'
 ];
 
