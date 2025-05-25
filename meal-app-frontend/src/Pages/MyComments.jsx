@@ -15,7 +15,7 @@ export default function MyComments() {
     const callAllComents = async () => {
       try {
         if (userId) {
-          await dispatch(callComents({ userId })).unwrap();
+          await dispatch(callComents( userId )).unwrap();
         } else if (storedUserId) {
           await dispatch(callComents({ userId: storedUserId })).unwrap();
         }

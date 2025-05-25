@@ -12,7 +12,7 @@ export const addFavoriteRecipes = createAsyncThunk("addFavoriteRecipes", async (
     return null;
 });
 
-export const callFavoriteRecipes = createAsyncThunk("callFavoriteRecipes", async ( userId ) => {
+export const callFavoriteRecipes = createAsyncThunk("callFavoriteRecipes", async ( {userId} ) => {
     const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/favorites/${userId}`, 
         { withCredentials: true }
@@ -29,7 +29,7 @@ export const removeFromFavoriteRecipes = createAsyncThunk("removeFromFavorites",
 });
 
 
-export const getFavoritRecipesWithContent = createAsyncThunk("getRecipesByName",async ( recipeName ) => {
+export const getFavoritRecipesWithContent = createAsyncThunk("getRecipesByName",async ( {recipeName} ) => {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/getRecipesByName`,
         { recipeName },
