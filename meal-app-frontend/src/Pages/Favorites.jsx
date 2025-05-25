@@ -32,7 +32,7 @@ function Favorites() {
           await dispatch(setUserId(storedUserId)).unwrap();
           await dispatch(callFavoriteRecipes({ userId: storedUserId })).unwrap();
         } else if (userId) {
-          await dispatch(callFavoriteRecipes({ userId })).unwrap();
+          await dispatch(callFavoriteRecipes( userId )).unwrap();
         }
       } catch (err) {
         console.error('Error loading favorites:', err);
